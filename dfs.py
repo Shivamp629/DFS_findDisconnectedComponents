@@ -10,19 +10,22 @@ class Graph:
   def DFS(self, start):
     visitedSet = set()
     countGraphs = 0
-
+    components = []
     for neighbor in self.graph.keys():
+      verticesInComponent = []
       if (neighbor not in visitedSet):
-        self.DFSHelper(neighbor, visitedSet)
+        self.DFSHelper(neighbor, visitedSet, verticesInComponent)
+        components.append(verticesInComponent)
         countGraphs += 1
-    outputText = ("Graph has {} components").format(countGraphs)
+    outputText = ("Graph has {} components and the components each contain the following values {}").format(countGraphs, components)
     print(outputText)
 
-  def DFSHelper(self, node, visitedSet):
+  def DFSHelper(self, node, visitedSet, verticesInComponent):
     visitedSet.add(node)
+    verticesInComponent.append(node)
     for neighbor in self.graph.get(node):
       if (neighbor not in visitedSet):
-        self.DFSHelper(neighbor, visitedSet)
+        self.DFSHelper(neighbor, visitedSet, verticesInComponent)
 
   
 g = Graph() 
